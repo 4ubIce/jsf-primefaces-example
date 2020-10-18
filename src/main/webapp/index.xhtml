@@ -9,23 +9,28 @@
 <h:head>
 </h:head>
 <h:body>
-	<h1>Hello World</h1>
-	<h:form>
-		<p><h:outputText value="Hello #{mainBean.name} !!!"/></p>
-		<a onclick="PF('dlg1').show();" href="#">
-			<h:outputText value="Open primefaces dialog" />
-		</a>
+	<h:form id="tableForm">
+		<h3>Анализиремая страница</h3>
+		<div style="display: flex; flex-direction: column">
+			<p:inputTextarea value="#{mainBean.linkText}" rows="1" cols="100" />
+			<p:commandButton value="Анализировать" id="bAnalyze" action="#{mainBean.bAnalyzeClick}" style="margin-top:5px;" />
+
+			<h3>Обнаруженные ссылки</h3>
+			<p:dataTable var="link" value="#{mainBean.links}">
+				<p:column headerText="№ п/п">
+					<h:outputText value="#{link.id}" />
+				</p:column>
+
+				<p:column headerText="Имя ссылки">
+					<h:outputText value="#{link.text}" />
+				</p:column>
+
+				<p:column headerText="Адрес ссылки">
+					<h:outputText value="#{link.value}" />
+				</p:column>
+			</p:dataTable>
+			<p:commandButton value="Очистить" id="bClear" action="#{mainBean.bClearClick}" style="margin-top:5px;" />
+		</div>
 	</h:form>
- 	<p:dialog widgetVar="dlg1">
- 		<f:facet name="header">
-            <h:outputText value="Dialog" />
-		</f:facet>
-		<div>
-			<h:outputText value="Test dialog" />
-		</div>
-		<div>
-			<a href="#" onclick="PF('dlg1').hide()"><h:outputText value="Close" /></a>
-		</div>
- 	</p:dialog>
 </h:body>
 </html>

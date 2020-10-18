@@ -20,4 +20,5 @@ dependencies {
 	compile 'org.glassfish.web:el-impl:2.2'	
 	compile 'org.primefaces:primefaces:8.0'
 	compile 'org.primefaces.themes:bootstrap:1.0.10'
+	compile 'org.jsoup:jsoup:1.12.1'
 }
