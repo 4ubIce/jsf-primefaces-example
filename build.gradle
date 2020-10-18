@@ -1,0 +1,23 @@
+apply plugin: 'java'
+apply plugin: 'war'
+
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+	maven {
+		url "http://repository.primefaces.org"
+	}
+}
+
+dependencies {
+	providedCompile 'javax.servlet:servlet-api:2.5'
+	providedCompile group: 'javax.servlet.jsp', name: 'javax.servlet.jsp-api', version: '2.3.3'
+	compile 'com.sun.faces:jsf-api:2.2.20'
+	compile 'com.sun.faces:jsf-impl:2.2.20'
+	compile 'org.glassfish.web:el-impl:2.2'	
+	compile 'org.primefaces:primefaces:8.0'
+	compile 'org.primefaces.themes:bootstrap:1.0.10'
+}
