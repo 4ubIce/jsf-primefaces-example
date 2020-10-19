@@ -1,17 +1,20 @@
 package by.jsf.example;
 
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.*;
-
 import by.jsf.example.entity.Link;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @ViewScoped
 @ManagedBean(name = "mainBean")
@@ -33,11 +36,11 @@ public class MainBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		try {
-			findLinks("https://tut.by");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			findLinks("https://tut.by");
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	public String getLinkText() {
@@ -77,17 +80,21 @@ public class MainBean implements Serializable {
 
 	public void bAnalyzeClick() {
 		try {
+			links = new ArrayList<>();
 			findLinks(linkText);
 		} catch (IOException e) {
+			showMessage();
 			e.printStackTrace();
 		}
-		System.out.println(links.size());
 	}
 
 	public void bClearClick() {
 		links = new ArrayList<>();
 	}
 
+	public void showMessage() {
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Error!", "¬веден неверный URL"));
+	}
 
 //	public String getName() {
 //		return name;

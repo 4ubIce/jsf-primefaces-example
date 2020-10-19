@@ -13,10 +13,26 @@
 		<h3>Анализиремая страница</h3>
 		<div style="display: flex; flex-direction: column">
 			<p:inputTextarea value="#{mainBean.linkText}" rows="1" cols="100" />
-			<p:commandButton value="Анализировать" id="bAnalyze" action="#{mainBean.bAnalyzeClick}" style="margin-top:5px;" />
+			<p:messages id="messages" showDetail="true" closable="true">
+				<p:autoUpdate />
+			</p:messages>
+			<p:commandButton value="Анализировать" id="bAnalyze" action="#{mainBean.bAnalyzeClick}" update="tLinks" style="margin-top:5px;" />
+			<p:ajaxStatus style="display:block;margin:auto;height:120px;">
+				<f:facet name="default">
+					<h:outputText value="Готов" />
+				</f:facet>
 
+				<f:facet name="start">
+					<p:graphicImage name="images/loader.gif" />
+					<h:outputText value="Идет обработка..." />
+				</f:facet>
+
+				<f:facet name="complete">
+					<h:outputText value="Завершено" />
+				</f:facet>
+			</p:ajaxStatus>
 			<h3>Обнаруженные ссылки</h3>
-			<p:dataTable var="link" value="#{mainBean.links}">
+			<p:dataTable id="tLinks" var="link" value="#{mainBean.links}">
 				<p:column headerText="№ п/п">
 					<h:outputText value="#{link.id}" />
 				</p:column>
@@ -29,7 +45,7 @@
 					<h:outputText value="#{link.value}" />
 				</p:column>
 			</p:dataTable>
-			<p:commandButton value="Очистить" id="bClear" action="#{mainBean.bClearClick}" style="margin-top:5px;" />
+			<p:commandButton value="Очистить" id="bClear" action="#{mainBean.bClearClick}" update="tLinks" style="margin-top:5px;" />
 		</div>
 	</h:form>
 </h:body>
