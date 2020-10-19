@@ -1,6 +1,7 @@
 package by.jsf.example;
 
 import by.jsf.example.entity.Link;
+import org.apache.commons.validator.routines.UrlValidator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -59,9 +60,15 @@ public class MainBean implements Serializable {
 		this.links = links;
 	}
 
+	private Boolean isLinkCorrect(String link) {
+		UrlValidator validator = new UrlValidator();
+		return validator.isValid(link);
+	}
+
 	private void findLinks(String url) throws IOException {
 
 		int counter = 1;
+		String link;
 
 		Document doc = Jsoup.connect(url)
 				.data("query", "Java")
@@ -72,8 +79,11 @@ public class MainBean implements Serializable {
 
 		Elements elements = doc.select("a[href]");
 		for (Element element : elements) {
-			links.add(new Link(counter, element.text(), element.attr("href")));
-			counter++;
+			link = element.attr("href");
+			if (isLinkCorrect(link)) {
+				links.add(new Link(counter, element.text(), element.attr("href")));
+				counter++;
+			}
 		}
 
 	}
@@ -81,7 +91,12 @@ public class MainBean implements Serializable {
 	public void bAnalyzeClick() {
 		try {
 			links = new ArrayList<>();
-			findLinks(linkText);
+			if (isLinkCorrect(linkText)) {
+				findLinks(linkText);
+			} else {
+				showMessage();
+			}
+
 		} catch (IOException e) {
 			showMessage();
 			e.printStackTrace();
@@ -89,7 +104,11 @@ public class MainBean implements Serializable {
 	}
 
 	public void bClearClick() {
-		links = new ArrayList<>();
+		setLinks(new ArrayList<>());
+	}
+
+	public void linkAction(String linkAddress) {
+		setLinkText(linkAddress);
 	}
 
 	public void showMessage() {

@@ -22,4 +22,5 @@ dependencies {
 	compile 'org.primefaces:primefaces:8.0'
 	compile 'org.primefaces.themes:bootstrap:1.0.10'
 	compile 'org.jsoup:jsoup:1.12.1'
+	compile group: 'commons-validator', name: 'commons-validator', version: '1.7'
 }

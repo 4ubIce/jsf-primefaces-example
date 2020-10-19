@@ -12,7 +12,7 @@
 	<h:form id="tableForm">
 		<h3>Анализиремая страница</h3>
 		<div style="display: flex; flex-direction: column">
-			<p:inputTextarea value="#{mainBean.linkText}" rows="1" cols="100" />
+			<p:inputTextarea id="taLinkAddress" value="#{mainBean.linkText}" rows="1" cols="100" />
 			<p:messages id="messages" showDetail="true" closable="true">
 				<p:autoUpdate />
 			</p:messages>
@@ -42,7 +42,9 @@
 				</p:column>
 
 				<p:column headerText="Адрес ссылки">
-					<h:outputText value="#{link.value}" />
+					<p:commandLink action="#{mainBean.linkAction(link.value)}" update="taLinkAddress" ajax="false" >
+						<h:outputText value="#{link.value}" />
+					</p:commandLink>
 				</p:column>
 			</p:dataTable>
 			<p:commandButton value="Очистить" id="bClear" action="#{mainBean.bClearClick}" update="tLinks" style="margin-top:5px;" />
