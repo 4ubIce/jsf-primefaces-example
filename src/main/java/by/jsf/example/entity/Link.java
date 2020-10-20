@@ -3,6 +3,9 @@ package by.jsf.example.entity;
 import java.io.Serializable;
 import java.util.Objects;
 
+/*
+    Класс используется для хранения ссылки
+ */
 public class Link implements Serializable {
 
     public int id;
